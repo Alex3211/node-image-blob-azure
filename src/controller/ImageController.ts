@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import authenticateBefore from '../middleware/Authenticate';
 import { BlobServiceClient } from '@azure/storage-blob'
+import wording from '../config/Word';
 
 export default class ImageController {
 
@@ -8,9 +9,9 @@ export default class ImageController {
   public async uploadImage(req: Request, res: Response, status?: any) {
     try{
       if(!req.files){
-        res.send({
-          status: false,
-          message : 'no file uploaded'
+        res.status(401).json({
+          success: false,
+          message: wording.imageNotFound
         });
       } else{
         const blobServiceClient = await BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
