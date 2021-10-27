@@ -6,9 +6,10 @@ import wording from '../config/Word';
 export default class ImageController {
 
   @authenticateBefore
-  public async uploadImage(req: Request, res: Response, status?: any) {
+  public async uploadImage(req: Request, res: Response) {
     try{
-      if(!req.files){
+      const name = req.query.name.toString() || null;
+      if(!req.files || !name){
         res.status(401).json({
           success: false,
           message: wording.imageNotFound
@@ -16,13 +17,14 @@ export default class ImageController {
       } else{
         const blobServiceClient = await BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
         const containerClient = await blobServiceClient.getContainerClient("images");
-        const blockBlobClient = await containerClient.getBlockBlobClient(req.body.name);
+        const blockBlobClient = await containerClient.getBlockBlobClient(name);
         const data = (req.files.image as any).data;
         await blockBlobClient.upload(data, data.length);
-        const blockBlobuploaded =  await containerClient.getBlockBlobClient(req.body.name);
+        const blockBlobuploaded =  await containerClient.getBlockBlobClient(name);
         await res.send({ status: true, url: blockBlobuploaded.url, message: 'File is uploaded' })
       }
       } catch(err){
+        console.dir(err)
         res.status(500).send(err);
       } 
   }

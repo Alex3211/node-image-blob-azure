@@ -11,7 +11,7 @@ export default function authenticateBefore(target: any, key: any, descriptor: Pr
     }
     const req = args[0];
     const res = args[1];
-    const token = req.headers['x-access-token'] || req.body.token || null;
+    const token = req.body.token || req.query.token || null;
     if(utils.getAuthorizedTokens().includes(token)) originalMethod.apply(this, args);
     else 
       res.status(401).json({
