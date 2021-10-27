@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "09b6728a-7bd1-462b-80a5-9499587c11d8",
+		"name": "ImageGateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload image",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "wc29j2",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "fvalfrey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "FreePass",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Alex1/Pictures/blanc.PNG"
+						},
+						{
+							"key": "name",
+							"value": "id",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/v1/image",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"image"
+					],
+					"query": [
+						{
+							"key": "x-access-token",
+							"value": "Freepass",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
